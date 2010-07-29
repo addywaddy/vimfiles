@@ -4,6 +4,13 @@
 "This must be first, because it changes other options as a side effect.
 set nocompatible
 
+"mapleader
+let mapleader= ","
+
+"ack stuff
+set grepprg=ack
+set grepformat=%f:%l:%m
+
 "allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
@@ -221,8 +228,8 @@ set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
 set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
 
 "display tabs and trailing spaces
-"set list
-"set listchars=tab:\ \ ,extends:>,precedes:<
+set list
+set listchars=tab:>-,trail:~,extends:>,precedes:<
 " disabling list because it interferes with soft wrap
 
 set formatoptions-=o "dont continue comments when pushing o/O
@@ -276,8 +283,6 @@ if has("gui_running")
         " uncomment to replace the Mac Command-T key to Command-T plugin
         "macmenu &File.New\ Tab key=<nop>
         "map <D-t> :CommandT<CR>
-        " make Mac's Option key behave as the Meta key
-        set invmmta
         try
           set transparency=5
         catch

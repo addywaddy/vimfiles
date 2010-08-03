@@ -90,6 +90,11 @@ installed. A binary for Windows is already bundled so it should just
 work. I've also included a binary compiled for Ruby Enterprise Edition,
 but if you are using other Ruby distros, you will need to recompile.
 
+Even then, I couldn't get it working on my machine. In the end
+
+<pre><code>
+env ARCHFLAGS="-arch x86_64" make</pre></code>
+did the trick.
 
 h2. Learn Vim
 

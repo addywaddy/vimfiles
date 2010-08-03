@@ -1,15 +1,9 @@
-"Fabio Kung <fabio.kung@gmail.com>
-"
-"Use Vim settings, rather then Vi settings (much better!).
-"This must be first, because it changes other options as a side effect.
-set nocompatible
-
 "mapleader
 let mapleader= ","
 
-"ack stuff
-set grepprg=ack
-set grepformat=%f:%l:%m
+"Use Vim settings, rather then Vi settings (much better!).
+"This must be first, because it changes other options as a side effect.
+set nocompatible
 
 "allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -227,9 +221,12 @@ set wildmode=list:longest   "make cmdline tab completion similar to bash
 set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
 set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
 
-"display tabs and trailing spaces
-set list
-set listchars=tab:>-,trail:~,extends:>,precedes:<
+" Shortcut to rapidly toggle `set list`
+nmap <leader>l :set list!<CR>
+
+" Use the same symbols as TextMate for tabstops and EOLs
+set listchars=tab:▸\ ,eol:¬,trail:.
+
 " disabling list because it interferes with soft wrap
 
 set formatoptions-=o "dont continue comments when pushing o/O
@@ -242,8 +239,12 @@ set sidescroll=1
 "necessary on some Linux distros for pathogen to properly load bundles
 filetype off
 
+
 "load pathogen managed plugins
 call pathogen#runtime_append_all_bundles()
+
+"load pathogen help tags
+call pathogen#helptags()
 
 "load ftplugins and indent files
 filetype plugin on
@@ -267,29 +268,33 @@ if has("gui_running")
     "tell the term has 256 colors
     set t_Co=256
 
+    colorscheme railscasts
+    set guitablabel=%M%t
+    set lines=40
+    set columns=115
+
     if has("gui_gnome")
         set term=gnome-256color
         colorscheme ir_dark
-        set guifont=Inconsolata\ Medium\ 12
-    else
-        colorscheme railscasts
-        set guitablabel=%M%t
-        set lines=40
-        set columns=115
+        set guifont=Monaco:h13
     endif
+
     if has("gui_mac") || has("gui_macvim")
-        set guifont=Menlo:h14
+        set guifont=Monaco:h13
         " key binding for Command-T to behave properly
         " uncomment to replace the Mac Command-T key to Command-T plugin
         "macmenu &File.New\ Tab key=<nop>
         "map <D-t> :CommandT<CR>
+        " make Mac's Option key behave as the Meta key
+        " set invmmta
         try
           set transparency=5
         catch
         endtry
     endif
+
     if has("gui_win32") || has("gui_win32s")
-        set guifont=Consolas:h12
+        set guifont=Monaco:h13
         set enc=utf-8
     endif
 else
@@ -297,7 +302,11 @@ else
     let g:CSApprox_loaded = 1
 endif
 
-nmap <silent> <Leader>p :NERDTreeToggle<CR>
+" PeepOpen uses <Leader>p as well so you will need to redefine it so something
+" else in your ~/.vimrc file, such as:
+" nmap <silent> <Leader>q <Plug>PeepOpen
+
+silent! nmap <silent> <Leader>p :NERDTreeToggle<CR>
 nnoremap <silent> <C-f> :call FindInNERDTree()<CR> 
 
 "make <c-l> clear the highlight as well as redraw

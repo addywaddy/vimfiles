@@ -33,6 +33,12 @@ nmap <D-k> gk
 nmap <D-4> g$
 nmap <D-6> g^
 nmap <D-0> g^
+nmap <s-Left> 0
+nmap <s-Right> $
+nmap <C-Up> <C-W>k
+nmap <C-Down> <C-W>j
+nmap <C-Left> <C-W>h
+nmap <C-Right> <C-W>l
 
 "add some line space for easy reading
 set linespace=4
